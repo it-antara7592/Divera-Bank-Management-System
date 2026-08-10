@@ -1,9 +1,7 @@
 from pathlib import Path
 import customtkinter as ctk
 from PIL import Image
-
 from core import fonts, theme
-
 
 class LandingPage(ctk.CTkFrame):
 
