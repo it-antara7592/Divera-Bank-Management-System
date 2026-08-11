@@ -3,7 +3,6 @@ import customtkinter as ctk
 from PIL import Image
 from core import fonts, theme
 
-
 class LandingPage(ctk.CTkFrame):
 
     def __init__(self, parent, on_get_started):
