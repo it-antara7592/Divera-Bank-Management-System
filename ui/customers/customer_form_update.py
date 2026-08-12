@@ -5,8 +5,6 @@ import customtkinter as ctk
 
 from core import theme, fonts
 from services.customer_service import CustomerService
-
-# Import the centralized dialog from ui.components.dialogs
 from ui.components.dialogs import ManagerAuthorizationDialog
 
 logger = logging.getLogger(__name__)
