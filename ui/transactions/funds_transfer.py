@@ -364,9 +364,15 @@ class FundsTransferPage(ctk.CTkFrame):
         if not is_valid:
             reason = next(iter(errors.values()), "Transfer validation failed.")
             if from_account or to_account or amount:
-                self.transaction_service.log_failed_attempt(
-                    from_account, to_account, amount, reason
-                )
+                # Resolve source account object safely to log the failure accurately if it exists
+                source_obj = self.transaction_service.repo.get_account(from_account)
+                if source_obj:
+                    self.transaction_service._log_failed_transaction(
+                        transaction_id="TXN-FAIL-" + __import__("uuid").uuid4().hex[:6].upper(),
+                        account=source_obj,
+                        amount=float(amount) if amount.replace('.', '', 1).isdigit() else 0.0,
+                        reason=reason
+                    )
             tkmb.showerror("Transfer Failed", reason)
             return
 
