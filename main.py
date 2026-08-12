@@ -30,6 +30,7 @@ from ui.transactions.funds_transfer import FundsTransferPage
 from services.transaction_service import TransactionService
 from ui.transactions.withdraw_funds import WithdrawalPage
 from ui.transactions.desposit_funds import DepositPage
+from ui.transactions.transaction_history import TransactionHistoryPage
 
 class Application(ctk.CTk):
     def __init__(self):
@@ -54,7 +55,7 @@ class Application(ctk.CTk):
         self.container = ctk.CTkFrame(self, fg_color="transparent")
         self.container.pack(fill="both", expand=True)
 
-        self.show_withdrawal_funds()
+        self.show_transaction_history()
 
     def clear_page(self):
         for widget in self.container.winfo_children():
@@ -189,10 +190,10 @@ class Application(ctk.CTk):
             page = TransactionManagementPage(
                 parent=self.container,
                 on_back=self.show_dashboard,
-                on_deposit=None,
+                on_deposit=self.show_deposit_funds,
                 on_withdraw=self.show_withdrawal_funds,
                 on_transfer=self.show_funds_transfer,
-                on_history=None,
+                on_history=self.show_transaction_history,
             )
 
     def show_funds_transfer(self):
@@ -212,12 +213,20 @@ class Application(ctk.CTk):
             )
 
     def show_deposit_funds(self):
-                self.clear_page()
-                WithdrawalPage(
-                    parent=self.container,
-                    transaction_service=self.transaction_service,
-                    on_back=self.show_transaction_management
-                )
+        self.clear_page()
+        DepositPage(
+            parent=self.container,
+            transaction_service=self.transaction_service,
+            on_back=self.show_transaction_management
+        )
+
+    def show_transaction_history(self):
+            self.clear_page()
+            TransactionHistoryPage(
+                parent=self.container,
+                transaction_service=self.transaction_service,
+                on_back=self.show_transaction_management
+            )
 
     def navigate_to_dashboard(self, event=None):
         """Switch view back to the dashboard/funds transfer page via shortcut."""
