@@ -26,6 +26,10 @@ from ui.customers.customer_list_page import CustomerListPage
 from ui.customers.customer_form_update import CustomerUpdateFormPage
 from ui.transactions.transaction_management import TransactionManagementPage
 from ui.accounts.account_details_page import AccountDetailsPage
+from ui.transactions.funds_transfer import FundsTransferPage
+from services.transaction_service import TransactionService
+from ui.transactions.withdraw_funds import WithdrawalPage
+from ui.transactions.desposit_funds import DepositPage
 
 class Application(ctk.CTk):
     def __init__(self):
@@ -37,14 +41,20 @@ class Application(ctk.CTk):
         self.configure(fg_color=theme.BACKGROUND)
 
         # Services & State
+        self.transaction_service = TransactionService()
         self.auth_service = AuthService()
         self.current_user = None
+
+        self.bind_all("<Control-q>", self.navigate_to_dashboard)
+        self.bind_all("<Control-x>", self.navigate_to_customer_management)
+        self.bind_all("<Control-a>", self.navigate_to_account_management)
+        self.bind_all("<Control-z>", self.navigate_to_transaction_management)
 
         # Root view container
         self.container = ctk.CTkFrame(self, fg_color="transparent")
         self.container.pack(fill="both", expand=True)
 
-        self.show_dashboard()
+        self.show_withdrawal_funds()
 
     def clear_page(self):
         for widget in self.container.winfo_children():
@@ -180,12 +190,58 @@ class Application(ctk.CTk):
                 parent=self.container,
                 on_back=self.show_dashboard,
                 on_deposit=None,
-                on_withdraw=None,
-                on_transfer=None,
+                on_withdraw=self.show_withdrawal_funds,
+                on_transfer=self.show_funds_transfer,
                 on_history=None,
             )
 
+    def show_funds_transfer(self):
+        self.clear_page()
+        FundsTransferPage(
+            parent=self.container,
+            transaction_service=self.transaction_service,
+            on_back=self.show_transaction_management
+        )
 
+    def show_withdrawal_funds(self):
+            self.clear_page()
+            WithdrawalPage(
+                parent=self.container,
+                transaction_service=self.transaction_service,
+                on_back=self.show_transaction_management
+            )
+
+    def show_deposit_funds(self):
+                self.clear_page()
+                WithdrawalPage(
+                    parent=self.container,
+                    transaction_service=self.transaction_service,
+                    on_back=self.show_transaction_management
+                )
+
+    def navigate_to_dashboard(self, event=None):
+        """Switch view back to the dashboard/funds transfer page via shortcut."""
+        print("Shortcut triggered: Navigating to Dashboard")
+        self.clear_page()
+        self.show_dashboard()
+
+    def navigate_to_customer_management(self, event=None):
+        """Switch view to the respective management page via shortcut."""
+        print("Shortcut triggered: Navigating to Management Page")
+        self.clear_page()
+        self.show_customer_management()
+
+    def navigate_to_account_management(self, event=None):
+            """Switch view to the respective management page via shortcut."""
+            print("Shortcut triggered: Navigating to Management Page")
+            self.clear_page()
+            self.show_account_management()
+
+    def navigate_to_transaction_management(self, event=None):
+            """Switch view to the respective management page via shortcut."""
+            print("Shortcut triggered: Navigating to Management Page")
+            self.clear_page()
+            self.show_transaction_management()
         
 
 if __name__ == "__main__":
