@@ -47,9 +47,9 @@ class Application(ctk.CTk):
         self.current_user = None
 
         self.bind_all("<Control-q>", self.navigate_to_dashboard)
-        self.bind_all("<Control-x>", self.navigate_to_customer_management)
+        self.bind_all("<Control-w>", self.navigate_to_customer_management)
         self.bind_all("<Control-a>", self.navigate_to_account_management)
-        self.bind_all("<Control-z>", self.navigate_to_transaction_management)
+        self.bind_all("<Control-e>", self.navigate_to_transaction_management)
 
         # Root view container
         self.container = ctk.CTkFrame(self, fg_color="transparent")
