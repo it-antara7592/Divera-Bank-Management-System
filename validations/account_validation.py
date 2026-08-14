@@ -7,7 +7,7 @@ MINIMUM_BALANCES = {
 }
 
 class AccountValidation:
-    """Validates form input data without database queries."""
+    #Validates form input data without database queries.
 
     @staticmethod
     def validate_creation(payload: Dict[str, str]) -> Tuple[bool, Dict[str, str]]:
