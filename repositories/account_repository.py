@@ -132,8 +132,3 @@ class AccountRepository:
         except Exception as e:
             print(f"[AccountRepository Error - get_account_balance]: {e}")
             return 0.0
-
-    class DashboardService:
-        @staticmethod
-        def fetch_stats() -> dict:
-            return StatsRepository.get_dashboard_stats()
