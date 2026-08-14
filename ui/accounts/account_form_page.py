@@ -630,8 +630,7 @@ class AccountFormPage(ctk.CTkFrame):
         AccountSuccessDialog(
             parent=self,
             account_data=account_record,
-            on_account_management=self._execute_back_navigation,
-            on_deposit=lambda acc: self.controller.show_frame("DepositPage")  # or your deposit navigation callback
+            on_account_management=self._execute_back_navigation
         )
 
     def _clear_errors(self):
