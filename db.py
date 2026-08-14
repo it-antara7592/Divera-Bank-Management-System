@@ -62,7 +62,7 @@ def _init_database(database):
                 "department": "Accounts & Transactions",
                 "password": hash_password("1234"),
                 "reset_code": hash_password("DBMS-RESET-2026"),
-                "passcode": "7777",
+                "passcode": hash_password("7777"),
                 "created_at": datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
                 "updated_at": datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
             }
