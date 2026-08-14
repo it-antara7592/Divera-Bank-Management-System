@@ -111,25 +111,6 @@ class TransactionHistoryPage(ctk.CTkFrame):
 
         header.pack_propagate(False)
 
-        if self.on_back:
-
-            back_btn = ctk.CTkButton(
-                header,
-                text="Back",
-                width=100,
-                height=50,
-                font=fonts.BUTTON,
-                fg_color=theme.BUTTON_PRIMARY,
-                hover_color=theme.BUTTON_PRIMARY,
-                text_color="white",
-                command=self.on_back
-            )
-
-            back_btn.place(
-                x=20,
-                y=20
-            )
-
         title = ctk.CTkLabel(
             header,
             text="TRANSACTION HISTORY",
