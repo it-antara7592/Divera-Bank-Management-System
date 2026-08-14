@@ -9,7 +9,6 @@ from services.auth_service import (
     DatabaseConnectionError,
 )
 
-
 class LabeledEntry(ctk.CTkFrame):
 
     def __init__(
