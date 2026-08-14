@@ -409,6 +409,12 @@ class TransactionService:
             "balance_after":
                 new_source_balance,
 
+            "to_balance_before":
+                destination_balance,
+                
+            "to_balance_after": 
+                new_destination_balance,
+
             "overdraft_used":
                 will_use_overdraft,
 
