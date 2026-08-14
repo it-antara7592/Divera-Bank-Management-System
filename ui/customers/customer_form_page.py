@@ -370,7 +370,7 @@ class CustomerFormPage(ctk.CTkFrame):
         # Back Button (Left Aligned)
         back_btn = ctk.CTkButton(
             button_container,
-            text="← Back",
+            text="Back",
             font=fonts.BUTTON,
             fg_color="transparent",
             border_width=1,
