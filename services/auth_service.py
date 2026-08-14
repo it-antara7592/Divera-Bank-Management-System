@@ -89,12 +89,21 @@ class AuthService:
             raise DatabaseConnectionError("Failed to update password in database.") from e
 
     def verify_transaction_code(self, username: str, txn_code: str) -> bool:
-        #Verifies the special transaction code used by the admin for important changes.
+        #Verifies the special transaction code using bcrypt.
         try:
             db = self._get_database()
-            user = db["admins"].find_one({"username": username})
+
+            user = db["admins"].find_one(
+                {"username": username}
+            )
+
             if not user:
                 return False
-            return user.get("passcode") == txn_code.strip()
+
+            return verify_password(
+                txn_code.strip(),
+                user.get("passcode", "")
+            )
+
         except Exception:
             return False
