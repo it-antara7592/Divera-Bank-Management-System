@@ -1,27 +1,17 @@
 import datetime
 import json
 import logging
+import threading
 import os
-from pathlib import Path
-from repositories.stats_repository import StatsRepository
-
-
 import customtkinter as ctk
+from pathlib import Path
 from PIL import Image
-
-# =========================================================================
-# Integration Dependencies (Uncomment when MongoDB & Gemini are live)
-# =========================================================================
-# from dotenv import load_dotenv
-# import google.generativeai as genai
-# from pymongo import MongoClient
-
 from core import fonts, theme
+from repositories.stats_repository import StatsRepository
+from services.ai_service import AIService
 
 # Setup module-level logger
 logger = logging.getLogger(__name__)
-
-# load_dotenv()  # Reads GEMINI_API_KEY and MONGO_URI from .env file
 
 
 class DashboardPage(ctk.CTkFrame):
@@ -29,9 +19,7 @@ class DashboardPage(ctk.CTkFrame):
     def __init__(self, parent, current_user=None, on_logout=None, open_customer_management=None,open_account_management=None, open_transaction_management=None,open_profile=None):
         super().__init__(parent, fg_color=theme.BACKGROUND)
 
-        # Ensure frame fills container layout immediately
         self.pack(fill="both", expand=True)
-
         self.current_user = current_user
         self.on_logout_callback = on_logout
         self.open_customer_management_callback = open_customer_management
@@ -52,7 +40,6 @@ class DashboardPage(ctk.CTkFrame):
 
         # References to value labels for safe real-time updates
         self.stat_labels = {}
-        
 
         try:
             self.create_layout()
@@ -63,7 +50,7 @@ class DashboardPage(ctk.CTkFrame):
         self.refresh_stats()
 
     def refresh_stats(self):
-        """Fetches live aggregated metrics from MongoDB and updates the dashboard cards instantly."""
+        #Fetches live aggregated metrics from MongoDB and updates the dashboard cards instantly.
         try:
             live_data = StatsRepository.get_dashboard_stats()
             for key, val_lbl in self.stat_labels.items():
@@ -134,21 +121,6 @@ class DashboardPage(ctk.CTkFrame):
         right_container = ctk.CTkFrame(self.header, fg_color="transparent")
         right_container.pack(side="right", padx=20, pady=14)
 
-        # if self.on_logout_callback:
-        #     logout_btn = ctk.CTkButton(
-        #         right_container,
-        #         text="Logout",
-        #         width=100,
-        #         height=42,
-        #         corner_radius=20,
-        #         fg_color="#DC2626",
-        #         hover_color="#B91C1C",
-        #         text_color="white",
-        #         font=("Montserrat", 13, "bold"),
-        #         command=self.on_logout_callback,
-        #     )
-        #     logout_btn.pack(side="right", padx=(10, 0))
-
         # Dynamic Profile Page Navigation Button
         profile_btn = ctk.CTkButton(
             right_container,
@@ -181,9 +153,8 @@ class DashboardPage(ctk.CTkFrame):
         )
         subtitle.pack(anchor="w", pady=(0, 25))
 
-        # ===============================
+
         # Dynamic Stat Cards Section
-        # ===============================
         stats_frame = ctk.CTkFrame(self.content, fg_color="transparent")
         stats_frame.pack(fill="x", pady=(10, 30))
 
@@ -204,9 +175,8 @@ class DashboardPage(ctk.CTkFrame):
             except Exception as e:
                 logger.error(f"Failed to render stat card '{key}': {e}")
 
-        # ===============================
+
         # Quick Actions (Centered Layout)
-        # ===============================
         actions_heading = ctk.CTkLabel(
             self.content,
             text="Quick Actions",
@@ -260,9 +230,8 @@ class DashboardPage(ctk.CTkFrame):
         )
         transaction_btn.grid(row=0, column=2, padx=10, pady=5)
 
-        # =====================================================
+
         # AI Insights Section
-        # =====================================================
         self.build_ai_insights()
 
         footer = ctk.CTkLabel(
@@ -274,7 +243,7 @@ class DashboardPage(ctk.CTkFrame):
         footer.pack(pady=(30, 15))
 
     def create_stat_card(self, parent, row, column, title, value):
-        """Builds card with registered label reference for real-time DB updates."""
+        #Builds card with registered label reference for real-time DB updates.
         try:
             card = ctk.CTkFrame(
                 parent,
@@ -319,7 +288,7 @@ class DashboardPage(ctk.CTkFrame):
             logger.error(f"Error creating card '{title}': {e}")
 
     def update_stat_cards(self, new_data: dict):
-        """Updates stat card values safely when DB connects."""
+        #Updates stat card values safely when DB connects.
         try:
             for title, val in new_data.items():
                 if title in self.stat_labels:
@@ -329,7 +298,7 @@ class DashboardPage(ctk.CTkFrame):
             logger.error(f"Error updating stat card values: {e}")
 
     def build_ai_insights(self):
-        """AI Insights panel with cached load and on-demand execution."""
+        #AI Insights panel with cached load and on-demand execution.
         try:
             ai_card = ctk.CTkFrame(
                 self.content,
@@ -415,24 +384,51 @@ class DashboardPage(ctk.CTkFrame):
         except Exception as e:
             logger.error(f"Failed building AI Insights panel: {e}")
 
-    # =========================================================================
+
     # Event Handlers & Modal
-    # =========================================================================
     def safe_generate_ai_insight(self):
         """Triggered on-demand when user clicks 'Generate Fresh Insights'."""
         try:
             logger.info("Initiating on-demand AI insight pipeline...")
             self.ai_summary_label.configure(
-                text="⏳ Running MongoDB aggregations and calling AI API..."
+                text="⏳ Gathering database counts and querying Gemini AI..."
             )
+            # Run in background thread to keep UI completely responsive
+            threading.Thread(target=self._fetch_ai_insights_background, daemon=True).start()
         except Exception as e:
             logger.error(f"Error initiating AI generation: {e}")
 
-    def safe_open_full_report_modal(self):
-        """Opens popup displaying full multi-section report."""
+    def _fetch_ai_insights_background(self):
         try:
-            current_report = self.ai_summary_label.cget("text")
-            FullReportModal(self, report_text=current_report)
+            # 1. Grab raw statistics from your dashboard stat cards
+            raw_metrics = "Current Dashboard Database Metrics:\n"
+            for title, label_widget in self.stat_labels.items():
+                raw_metrics += f"- {title}: {label_widget.cget('text')}\n"
+
+            # 2. Sanitize data through security filter
+            safe_metrics = AIService.anonymize_data(raw_metrics)
+
+            # 3. Fetch from Gemini
+            result = AIService.generate_banking_insights(safe_metrics)
+            
+            # 4. Update local memory cache
+            self.cached_short_summary = result.get("short", "No summary.")
+            self.cached_full_report = result.get("full", "No report.")
+
+            # 5. Update UI label safely on main thread
+            self.after(0, lambda: self.ai_summary_label.configure(text=self.cached_short_summary))
+            logger.info("Fresh AI insights successfully fetched and cached.")
+            
+        except Exception as e:
+            error_msg = f"❌ Failed to fetch insights: {str(e)}"
+            self.cached_short_summary = error_msg
+            self.after(0, lambda: self.ai_summary_label.configure(text=error_msg))
+            logger.error(error_msg)
+
+    def safe_open_full_report_modal(self):
+        #Opens popup displaying the detailed analytical report from cache.
+        try:
+            FullReportModal(self, report_text=self.cached_full_report)
             logger.info("Opened Full Report modal window.")
         except Exception as e:
             logger.error(f"Failed opening Full Report modal: {e}")
@@ -464,7 +460,6 @@ class DashboardPage(ctk.CTkFrame):
         except Exception as e:
             logger.error(f"Navigation error to Transaction Management: {e}")
             
-
     def safe_open_profile(self):
         try:
             if callable(self.open_profile_callback):
@@ -475,10 +470,7 @@ class DashboardPage(ctk.CTkFrame):
             logger.error(f"Navigation error to Profile Page: {e}")
 
 
-
-# =========================================================================
 # Pop-up Window for Full AI Operational Report
-# =========================================================================
 class FullReportModal(ctk.CTkToplevel):
 
     def __init__(self, parent, report_text):
