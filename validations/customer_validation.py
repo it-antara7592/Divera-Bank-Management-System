@@ -1,7 +1,6 @@
 import re
 from datetime import datetime
 
-
 class CustomerValidator:
 
     @staticmethod
