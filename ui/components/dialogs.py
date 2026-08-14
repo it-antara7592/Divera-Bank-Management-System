@@ -2,6 +2,7 @@ import customtkinter as ctk
 from core import theme, fonts
 import logging
 from services.transaction_service import TransactionService 
+from core.security import verify_password
 from db import get_db
 
 class SuccessDialog(ctk.CTkToplevel):
@@ -487,22 +488,37 @@ class ManagerAuthorizationDialog(ctk.CTkToplevel):
         try:
             db = get_db()
             admins_col = db["admins"]
-            
-            # Query the database to check if the entered code matches the stored passcode
-            record = admins_col.find_one({
-                "passcode": entered_code
-            })
 
-            if record:
+            # Get the admin record
+            record = admins_col.find_one({})
+
+            if not record:
+                self.err_label.configure(
+                    text="Admin authorization record not found."
+                )
+                return
+
+            # Verify entered passcode against bcrypt hash
+            stored_hash = record.get("passcode", "")
+
+            if verify_password(entered_code, stored_hash):
                 self.destroy()
+
                 if callable(self.on_authorized):
                     self.on_authorized()
+
             else:
-                self.err_label.configure(text="Invalid authorization passcode.")
+                self.err_label.configure(
+                    text="Invalid authorization passcode."
+                )
 
         except Exception as e:
-            logger.error(f"Error querying admins collection for authorization: {e}")
-            self.err_label.configure(text="Database connection error. Try again.")
+            logger.error(
+                f"Error verifying authorization passcode: {e}"
+            )
+            self.err_label.configure(
+                text="Database connection error. Try again."
+            )
 
 class AccountBalanceDialog(ctk.CTkToplevel):
     """
