@@ -2,11 +2,11 @@ from typing import Dict, Any
 from db import get_db
 
 class StatsRepository:
-    """Handles MongoDB aggregations for dashboard summary metrics."""
+    #Handles MongoDB aggregations for dashboard summary metrics.
 
     @staticmethod
     def get_dashboard_stats() -> Dict[str, Any]:
-        """Aggregates real-time metrics from customers, accounts, and transactions collections."""
+        #Aggregates real-time metrics from customers, accounts, and transactions collections.
         try:
             db = get_db()
             
