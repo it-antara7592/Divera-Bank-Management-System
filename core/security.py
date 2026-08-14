@@ -4,7 +4,7 @@ import bcrypt
 logger = logging.getLogger(__name__)
 
 def hash_password(plain_password: str) -> str:
-    """Hashes a raw password string using bcrypt with error handling."""
+    #Hashes a raw password string using bcrypt with error handling.
     if not plain_password:
         raise ValueError("Password string cannot be empty.")
     
@@ -18,7 +18,7 @@ def hash_password(plain_password: str) -> str:
         raise RuntimeError("Password security processing failed.") from e
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Verifies a plain text password against a stored bcrypt hash string."""
+    #Verifies a plain text password against a stored bcrypt hash string.
     if not plain_password or not hashed_password:
         return False
     
