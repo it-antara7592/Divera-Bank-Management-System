@@ -86,7 +86,7 @@ class CustomerValidator:
             if not re.fullmatch(r"[A-Z][0-9]{7}", num_str):
                 return "Invalid Passport format."
         elif id_type == "Driving Licence":
-            if len(num_str) < 10:
+            if not re.fullmatch(r"[A-Z]{2}[0-9]{2}[0-9]{11}",num_str):
                 return "Invalid Driving Licence number."
         elif id_type == "Voter ID":
             if not re.fullmatch(r"[A-Z]{3}[0-9]{7}", num_str):
