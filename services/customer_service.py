@@ -77,7 +77,6 @@ class CustomerService:
         #Bridge method called by AccountFormPage to search for customers.
         return CustomerRepository.find_by_id_phone_or_email(query)
 
-    
     @staticmethod
     def get_all_customers():
         #Fetches all customer records through repository.
