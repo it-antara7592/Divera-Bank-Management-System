@@ -391,7 +391,7 @@ class DashboardPage(ctk.CTkFrame):
         try:
             logger.info("Initiating on-demand AI insight pipeline...")
             self.ai_summary_label.configure(
-                text="⏳ Gathering database counts and querying Gemini AI..."
+                text="⏳ Gathering data and analyzing by AI..."
             )
             # Run in background thread to keep UI completely responsive
             threading.Thread(target=self._fetch_ai_insights_background, daemon=True).start()
