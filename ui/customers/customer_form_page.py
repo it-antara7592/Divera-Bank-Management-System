@@ -313,7 +313,7 @@ class CustomerFormPage(ctk.CTkFrame):
             "Aadhaar Card": "Enter 12-digit Aadhaar Number",
             "PAN Card": "e.g. ABCDE1234F",
             "Passport": "Enter Passport Number",
-            "Driving Licence": "Enter Driving Licence Number",
+            "Driving Licence": "e.g. MH0420264471096",
             "Voter ID": "Enter Voter ID Number"
         }
         entry.configure(placeholder_text=placeholders.get(value, "Enter ID Number"))
