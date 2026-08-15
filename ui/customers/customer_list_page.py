@@ -118,7 +118,7 @@ class CustomerListPage(ctk.CTkFrame):
 
         back_btn = ctk.CTkButton(
             right,
-            text="Return Dashboard",
+            text="Return to Management",
             width=140,
             height=36,
             corner_radius=8,
