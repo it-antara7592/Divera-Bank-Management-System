@@ -1,0 +1,6 @@
+customtkinter==6.0.0
+pymongo==4.17.0
+pillow==12.3.0
+bcrypt==5.0.0
+python-dotenv==1.2.2
+google-genai==2.18.0
