@@ -61,7 +61,7 @@ class Application(ctk.CTk):
         self.container = ctk.CTkFrame(self, fg_color="transparent")
         self.container.pack(fill="both", expand=True)
 
-        self.show_account_management()
+        self.show_transaction_management()
 
     def clear_page(self):
         for widget in self.container.winfo_children():
