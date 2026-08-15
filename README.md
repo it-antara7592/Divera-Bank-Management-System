@@ -1041,7 +1041,7 @@ This project was developed for academic and educational purposes.
 
 # 👤 Author
 
-**Divera Bank Management System**
+**Divera Bank Management System** by **Antara**
 
 Academic Project — 2026
 
