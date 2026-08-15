@@ -130,7 +130,7 @@ class SuccessDialog(ctk.CTkToplevel):
         # Primary Action: Create Bank Account
         create_acc_btn = ctk.CTkButton(
             actions_frame,
-            text="Create Bank Account →",
+            text="Create Bank Account",
             font=fonts.BUTTON,
             fg_color=theme.PRIMARY,
             hover_color=theme.BUTTON_PRIMARY_HOVER,
