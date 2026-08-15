@@ -1071,7 +1071,7 @@ class TransactionService:
         account_acc_type = account.get(
             "account_type",
             ""
-        )
+        ).lower()
 
         overdraft_used = bool(
             account.get(
@@ -1080,15 +1080,29 @@ class TransactionService:
             )
         )
 
+        balance = float(
+            account.get("balance", 0.0)
+        )
+
         if is_overdraft_repayment:
 
-            if account_acc_type.lower() != "current":
+            if account_acc_type != "current":
                 return (
                     False,
                     {
                         "general":
-                        "Overdraft repayment option is only "
+                        "Overdraft repayment is only "
                         "available for Current accounts."
+                    },
+                    {}
+                )
+
+            if balance >= 0:
+                return (
+                    False,
+                    {
+                        "general":
+                        "This account has no outstanding overdraft."
                     },
                     {}
                 )
@@ -1098,8 +1112,21 @@ class TransactionService:
                     False,
                     {
                         "general":
-                        "Account has not used its overdraft "
-                        "facility. Normal deposit should be used."
+                        "This account has no active overdraft "
+                        "to repay."
+                    },
+                    {}
+                )
+            # Repayment must exactly match the outstanding amount
+            outstanding_overdraft = abs(balance)
+
+            if amount_value != outstanding_overdraft:
+                return (
+                    False,
+                    {
+                        "amount":
+                        f"Overdraft repayment must be exactly "
+                        f"₹{outstanding_overdraft:,.2f}."
                     },
                     {}
                 )
@@ -1188,7 +1215,28 @@ class TransactionService:
         # RESET OVERDRAFT
         # -----------------------------------------------------
 
+        # -----------------------------------------------------
+        # RESET OVERDRAFT
+        # -----------------------------------------------------
+
         if is_overdraft_repayment:
+
+            # Safety check: repayment must completely clear
+            # the negative overdraft balance.
+            if round(new_account_balance, 2) != 0:
+                self._log_failed_deposit_transaction(
+                    transaction_id,
+                    account,
+                    amount,
+                    "Overdraft repayment did not fully clear "
+                    "the outstanding overdraft balance."
+                )
+
+                return (
+                    False,
+                    "Overdraft repayment must fully clear "
+                    "the outstanding overdraft balance."
+                )
 
             overdraft_reset = (
                 self.repo.reset_overdraft_status(
