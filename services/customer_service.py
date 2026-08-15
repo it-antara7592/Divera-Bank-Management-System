@@ -72,7 +72,7 @@ class CustomerService:
             logger.error(f"[CustomerService Error - save_customer]: {e}")
             return False, {"general": "Database connection error. Please try again later."}
 
-    @staticmethod
+    
     def search_customer(self, query: str):
         #Bridge method called by AccountFormPage to search for customers.
         return CustomerRepository.find_by_id_phone_or_email(query)
