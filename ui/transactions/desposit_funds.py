@@ -352,10 +352,9 @@ class DepositPage(ctk.CTkFrame):
             # Log the failed transaction attempt in the database if account exists
             account_obj = self.transaction_service.get_account_details(account_number)
             if account_obj:
-                self.transaction_service._log_failed_transaction(
-                    transaction_id="TXN-FAIL-" + __import__("uuid").uuid4().hex[:6].upper(),
-                    account=account_obj,
-                    amount=float(amount_str) if amount_str.replace('.', '', 1).isdigit() else 0.0,
+                self.transaction_service.log_failed_deposit_attempt(
+                    account_number=account_number,
+                    amount=amount_str,
                     reason=error_message
                 )
             
