@@ -1050,6 +1050,34 @@ The AI-assisted insights feature represents an attempt to introduce a modern tec
 
 ---
 
+## 🎥 Project Demonstration
+
+A functional demonstration of the Divera Bank Management System is available below.
+
+The video demonstrates the core functionality of the application, including:
+
+- Administrator authentication
+- Customer management
+- Automatic Customer ID generation
+- Account management
+- Automatic Account Number generation
+- Balance checking
+- Deposits, withdrawals, and account-to-account transfers
+- Banking business rules and validation
+- Current Account overdraft handling
+- Transaction history
+- Account closing and account lifecycle management
+- Dashboard statistics
+- AI-assisted insights
+
+### ▶️ Watch the Demonstration
+
+[**Watch the Divera Bank Demo on YouTube**] https://youtu.be/WMIjhva17po
+
+> **Note:** The demonstration video is hosted on YouTube as an **Unlisted** video. It is accessible through the link above and is not publicly listed in YouTube search.
+
+---
+
 # 📄 License
 
 This project was developed for academic and educational purposes.
