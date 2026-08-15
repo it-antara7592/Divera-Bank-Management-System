@@ -1215,10 +1215,6 @@ class TransactionService:
         # RESET OVERDRAFT
         # -----------------------------------------------------
 
-        # -----------------------------------------------------
-        # RESET OVERDRAFT
-        # -----------------------------------------------------
-
         if is_overdraft_repayment:
 
             # Safety check: repayment must completely clear
