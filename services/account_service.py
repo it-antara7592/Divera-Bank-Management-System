@@ -78,20 +78,38 @@ class AccountService:
         return True, {}, account_record
 
     def close_account(self, account_number: str) -> Tuple[bool, str]:
-        #Closes an active account after verifying zero balance.
+        # Closes an active account only when the balance is exactly zero.
         account = self.repo.find_account_by_number(account_number)
+
         if not account:
             return False, "Account number not found."
 
         if account.get("status") == "Closed":
             return False, "This account is already closed."
 
-        if account.get("balance", 0.0) > 0:
-            return False, f"Cannot close account with remaining balance (₹{account.get('balance'):,.2f}). Withdraw funds first."
+        balance = float(account.get("balance", 0.0))
 
+        # Positive balance → customer still has money
+        if balance > 0:
+            return False, (
+                f"Cannot close account with remaining balance "
+                f"(₹{balance:,.2f}). Withdraw funds first."
+            )
+
+        # Negative balance → outstanding overdraft
+        if balance < 0:
+            return False, (
+                f"Cannot close account while overdraft is outstanding "
+                f"(₹{abs(balance):,.2f}). Please repay the overdraft first."
+            )
+
+        # Balance is exactly zero → account can be closed
         success = self.repo.close_account(account_number)
+
         if success:
-            return True, f"Account {account_number} has been successfully closed."
+            return True, (
+                f"Account {account_number} has been successfully closed."
+            )
 
         return False, "Failed to close account due to a database error."
 
