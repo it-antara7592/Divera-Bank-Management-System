@@ -11,6 +11,7 @@ ENV/
 
 # Sensitive configuration
 .env
+datacredential.txt
 
 # IDE settings
 .vscode/
