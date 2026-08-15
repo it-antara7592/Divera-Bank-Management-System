@@ -600,7 +600,7 @@ The project includes a `requirements.txt` file containing the required Python de
 
 Install all required packages by running:
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
