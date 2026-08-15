@@ -357,39 +357,55 @@ class FundsTransferPage(ctk.CTkFrame):
         to_account = self.to_account_entry.get().strip()
         amount = self.amount_entry.get().strip()
 
-        is_valid, errors, transfer_details = self.transaction_service.validate_transfer(
-            from_account, to_account, amount
+        is_valid, errors, transfer_details = (self.transaction_service.validate_transfer(
+                from_account,
+                to_account,
+                amount
+            )
         )
 
         if not is_valid:
-            reason = next(iter(errors.values()), "Transfer validation failed.")
-            if from_account or to_account or amount:
-                # Resolve source account object safely to log the failure accurately if it exists
-                source_obj = self.transaction_service.repo.get_account(from_account)
-                if source_obj:
-                    self.transaction_service._log_failed_transaction(
-                        transaction_id="TXN-FAIL-" + __import__("uuid").uuid4().hex[:6].upper(),
-                        account=source_obj,
-                        amount=float(amount) if amount.replace('.', '', 1).isdigit() else 0.0,
-                        reason=reason
-                    )
-            tkmb.showerror("Transfer Failed", reason)
-            return
+            reason = next(
+                iter(errors.values()),
+                "Transfer validation failed."
+            )
 
+            # Log the failed attempt only when there
+            # is enough information to identify the attempt.
+            if from_account or to_account or amount:
+                self.transaction_service.log_failed_transfer_attempt(
+                    from_account=from_account,
+                    to_account=to_account,
+                    amount=amount,
+                    reason=reason
+                )
+
+            tkmb.showerror("Transfer Failed",reason)
+            return
+        
         self.pending_transfer = transfer_details
+
         source = transfer_details["source"]
         destination = transfer_details["destination"]
         transfer_amount = transfer_details["amount"]
 
         overdraft_text = ""
-        if transfer_details["will_use_overdraft"]:
-            overdraft_text = "\n\n⚠ This transfer will use the one-time overdraft facility."
+        if transfer_details.get("will_use_overdraft", False):
+            overdraft_text = (
+                "\n\n⚠ This transfer will use "
+                "the one-time overdraft facility."
+            )
 
         message = (
             "Please confirm the following transfer:\n\n"
-            f"From:\n{source.get('customer_name', 'Unknown')} ({source.get('account_number', '')})\n\n"
-            f"To:\n{destination.get('customer_name', 'Unknown')} ({destination.get('account_number', '')})\n\n"
-            f"Amount: ₹{transfer_amount:,.2f}{overdraft_text}"
+            f"From:\n"
+            f"{source.get('customer_name', 'Unknown')} "
+            f"({source.get('account_number', '')})\n\n"
+            f"To:\n"
+            f"{destination.get('customer_name', 'Unknown')} "
+            f"({destination.get('account_number', '')})\n\n"
+            f"Amount: ₹{transfer_amount:,.2f}"
+            f"{overdraft_text}"
         )
 
         self._show_confirmation(message)
