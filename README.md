@@ -2,9 +2,24 @@
 
 A desktop-based **Bank Management System** built using **Python, CustomTkinter, and MongoDB Community Server**.
 
-Divera Bank is an academic banking management application designed to simulate the internal operations of a bank. The project focuses on combining a traditional desktop banking system with practical business rules, database management, authentication, transaction processing, and an experimental **AI-assisted insights feature**.
+Divera Bank is an academic banking management application designed to simulate the internal administrative operations of a bank. The project combines practical business rules, database management, authentication, customer and account management, transaction processing, security features, and an experimental **AI-assisted insights feature**.
 
-The application is intentionally not designed to look like a modern enterprise banking platform. Instead, it explores how a traditional or older-generation desktop banking application might be structured and presented, while experimenting with the integration of modern AI capabilities into it.
+The application follows a **traditional desktop banking management approach**. Rather than attempting to reproduce the navigation patterns of modern web-based banking platforms, Divera Bank is organized around dedicated administrative pages, forms, database records, operational workflows, and rule-based processing.
+
+At the same time, the system introduces selected modern capabilities, particularly **AI-assisted operational analysis and insights**, on top of this traditional foundation.
+
+This creates the core concept of the project:
+
+```text
+Traditional Desktop Banking Management
+                +
+       Modern AI Experimentation
+                ↓
+          Divera Bank
+```
+
+The project therefore explores how a conventional, database-driven banking application can be enhanced with modern software capabilities such as intelligent analysis, automation, improved security, and data-driven insights.
+
 
 > **Note:** Divera Bank is an academic banking simulation. It does not connect to real banking networks, payment gateways, financial institutions, or real-world banking infrastructure.
 
@@ -842,7 +857,7 @@ The closed account remains in the database to preserve its record.
 
 ---
 
-# 🎨 User Interface
+## 🎨 User Interface
 
 Divera Bank uses **CustomTkinter** for its desktop graphical interface.
 
@@ -860,33 +875,36 @@ The interface includes:
 
 The visual design uses the Divera Bank branding, typography, icons, and image assets.
 
-## Design Approach
+--- 
 
-Divera Bank was **not designed to imitate a modern enterprise banking platform**.
+### Design Approach
 
-Instead, the project intentionally explores what a **traditional or older-generation desktop banking application** might look and feel like. The focus is placed on functional workflows, forms, database records, business rules, and administrative operations.
+The interface combines a **traditional desktop application workflow** with a clean and consistent visual design.
 
-A modern AI-assisted insights feature was then introduced into this traditional-style application.
+The application does not attempt to replicate a modern web-based banking platform with persistent navigation, highly interconnected pages, or enterprise-style interaction patterns. Instead, each major banking operation is organized into dedicated functional pages and workflows.
+
+The visual design is intentionally polished through consistent branding, typography, spacing, colors, buttons, cards, and structured layouts.
 
 This creates the following concept:
 
 ```text
-Traditional Desktop Banking Software
-                +
-        Modern AI Experimentation
-                │
-                ▼
-           Divera Bank
+Traditional Desktop Workflow
+            +
+     Modern Visual Design
+            +
+      AI-Assisted Analysis
+            │
+            ▼
+       Divera Bank
 ```
-The traditional appearance is therefore intentional and forms part of the project's concept, rather than being presented as an enterprise-level design.
 
 ---
 
 # 🧠 Project Philosophy
 
-Divera Bank is a **creative academic experiment** that explores the contrast between traditional software and modern software expectations.
+Divera Bank is a **creative academic experiment** that explores the evolution of traditional database-driven software toward more intelligent and user-centered applications.
 
-Rather than attempting to build a production-grade or enterprise-level banking platform, the project starts from a simpler, traditional banking-management approach consisting of:
+Rather than attempting to build a production-grade or enterprise-level banking platform, the project starts from a traditional banking-management approach consisting of:
 
 - Forms
 - Database records
@@ -895,31 +913,30 @@ Rather than attempting to build a production-grade or enterprise-level banking p
 - CRUD operations
 - Business logic
 
+The system follows a **traditional desktop application workflow**, where different banking operations are organized into dedicated functional pages rather than a highly interconnected modern web-style interface.
+
+A clean visual design and consistent branding are used to improve the presentation and usability of this traditional workflow.
+
 An AI-assisted insights feature is then added as a modern layer on top of this traditional foundation.
 
 The purpose is to explore the question:
 
-> **What would happen if a traditional banking management system were given a modern AI capability?**
+> **What would happen if a traditional banking management system were extended with modern AI capabilities?**
 
-This approach also provides an opportunity to understand **why modern enterprise software has evolved beyond purely functional systems**.
+This approach also provides an opportunity to understand how software can evolve beyond purely functional, database-driven systems.
 
-Through the project, it becomes possible to observe the value of features commonly found in modern software, such as:
+Through the project, it becomes possible to observe the value of capabilities commonly associated with modern software, such as:
 
 - Improved user experience
-- Better visual design
 - Automation
 - Intelligent assistance
 - Advanced analytics
+- Data-driven decision support
 - Stronger security
-- Accessibility
 - More efficient workflows
 - Greater system integration
 
-Therefore, Divera Bank is not intended to claim that its interface or architecture represents modern enterprise banking software.
-
-Instead, it is a **creative attempt to explore software evolution by deliberately combining a traditional-style banking application with a modern AI feature**.
-
-The project demonstrates how software can evolve from primarily functional, database-driven systems toward more intelligent, user-centered, automated, and integrated applications.
+Therefore, Divera Bank is not intended to claim that its interface or architecture represents modern enterprise banking software. Instead, it is a **creative attempt to explore software evolution by deliberately combining a traditional desktop banking-management application with modern visual design and AI-assisted analysis**.
 
 ---
 
