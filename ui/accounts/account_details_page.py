@@ -84,7 +84,7 @@ class AccountDetailsPage(ctk.CTkFrame):
 
         back_btn = ctk.CTkButton(
             right,
-            text="Back to Management",
+            text="Back to Directory",
             width=140,
             height=36,
             corner_radius=8,
