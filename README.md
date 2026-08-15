@@ -1072,9 +1072,9 @@ The video demonstrates the core functionality of the application, including:
 
 ### ▶️ Watch the Demonstration
 
-[**Access the Divera Bank Demo (Google Drive)**] 
+[**Access the Divera Bank Demo (Google Drive)**] https://drive.google.com/file/d/1cxIYkj3afkHTyDOWn-3ClkhqBvf8RBx1/view?usp=sharing 
 
-> **Note:** Access to this video is restricted so that only members of our college institute can watch it.  [ https://drive.google.com/file/d/1cxIYkj3afkHTyDOWn-3ClkhqBvf8RBx1/view?usp=sharing ] For the best visual quality and playback experience, we recommend downloading the file to watch it in its original, uncompressed resolution.
+> **Note:** Access to this video is restricted so that only members of our college institute can watch it. For the best visual quality and playback experience, we recommend downloading the file to watch it in its original, uncompressed resolution.
 
 ---
 
