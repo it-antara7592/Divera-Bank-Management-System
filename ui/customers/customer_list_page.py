@@ -203,7 +203,7 @@ class CustomerListPage(ctk.CTkFrame):
 
         self.update_btn = ctk.CTkButton(
             toolbar,
-            text="Update Customer Data",
+            text="Update Data",
             height=38,
             corner_radius=8,
             fg_color=theme.PRIMARY,
