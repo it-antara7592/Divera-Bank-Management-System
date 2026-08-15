@@ -877,6 +877,23 @@ The visual design uses the Divera Bank branding, typography, icons, and image as
 
 --- 
 
+## ⌨️ Keyboard Shortcuts
+
+Divera Bank provides keyboard shortcuts for quickly navigating between the main management sections of the application.
+
+| Shortcut | Action |
+|---|---|
+| `Ctrl + Q` | Open Dashboard |
+| `Ctrl + W` | Open Customer Management |
+| `Ctrl + E` | Open Transaction Management |
+| `Ctrl + A` | Open Account Management |
+
+These shortcuts provide a faster way to move between the major sections without requiring the administrator to navigate through multiple pages manually.
+
+The keyboard shortcuts also complement the application's traditional desktop-oriented workflow by providing direct keyboard-based access to frequently used management modules.
+
+--- 
+
 ### Design Approach
 
 The interface combines a **traditional desktop application workflow** with a clean and consistent visual design.
