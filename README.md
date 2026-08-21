@@ -375,14 +375,12 @@ Replace your_gemini_api_key_here with your own Gemini API key.
 The separation is:
 
 README.md
-    │
-    └── Predefined demo credentials
-        for application login
+      │
+      └── Predefined demo credentials for application login
 
 .env
-    │
-    └── User's own Gemini API key
-        for AI functionality
+      │
+      └── User's own Gemini API key for AI functionality
 
 No Gemini API key is distributed with the project.
 
