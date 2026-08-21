@@ -379,8 +379,8 @@ README.md
       └── Predefined demo credentials for application login
 
 .env
-      │
-      └── User's own Gemini API key for AI functionality
+  │
+  └── User's own Gemini API key for AI functionality
 ```
 
 No Gemini API key is distributed with the project.
