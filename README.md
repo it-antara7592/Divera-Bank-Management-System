@@ -373,7 +373,7 @@ Replace your_gemini_api_key_here with your own Gemini API key.
 ### ⚠️ Important: The .env file should not be committed to GitHub.
 
 The separation is:
-
+```
 README.md
       │
       └── Predefined demo credentials for application login
@@ -381,6 +381,7 @@ README.md
 .env
       │
       └── User's own Gemini API key for AI functionality
+```
 
 No Gemini API key is distributed with the project.
 
