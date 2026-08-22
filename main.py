@@ -15,6 +15,7 @@ ctk.set_default_color_theme("blue")
 
 load_dotenv()
 
+import logging
 from ui.landing_page import LandingPage
 from services.auth_service import AuthService
 from ui.login_page import LoginPage
@@ -36,6 +37,7 @@ from ui.transactions.funds_transfer import FundsTransferPage
 from services.transaction_service import TransactionService
 from ui.transactions.transaction_history import TransactionHistoryPage
 
+logger=logging.getLogger(__name__)
 
 class Application(ctk.CTk):
     def __init__(self):
@@ -233,25 +235,25 @@ class Application(ctk.CTk):
 
     def navigate_to_dashboard(self, event=None):
         #Switch view back to the dashboard page via shortcut.
-        print("Shortcut triggered: Navigating to Dashboard")
+        logger.info("Shortcut triggered: Navigating to Dashboard")
         self.clear_page()
         self.show_dashboard()
 
     def navigate_to_customer_management(self, event=None):
         #Switch view to the Customer Management Page via shortcut.
-        print("Shortcut triggered: Navigating to Management Page")
+        logger.info("Shortcut triggered: Navigating to Customer Management Page")
         self.clear_page()
         self.show_customer_management()
 
     def navigate_to_account_management(self, event=None):
-        #Switch view to the Customer Management Page via shortcut.
-        print("Shortcut triggered: Navigating to Management Page")
+        #Switch view to the Account Management Page via shortcut.
+        logger.info("Shortcut triggered: Navigating to Account Management Page")
         self.clear_page()
         self.show_account_management()
 
     def navigate_to_transaction_management(self, event=None):
-        #Switch view to the Customer Management Page via shortcut.
-        print("Shortcut triggered: Navigating to Management Page")
+        #Switch view to the Transaction Management Page via shortcut.
+        logger.info("Shortcut triggered: Navigating to Transaction Management Page")
         self.clear_page()
         self.show_transaction_management()
         
