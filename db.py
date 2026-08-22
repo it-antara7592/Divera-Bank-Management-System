@@ -2,6 +2,7 @@ import os
 import datetime
 from pymongo import MongoClient, ASCENDING
 from pymongo.errors import PyMongoError
+from core.security import hash_password
 
 # Database connection setup
 MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
@@ -52,7 +53,7 @@ def _init_database(database):
         database["transactions"].create_index([("status", ASCENDING)])
 
         if database["admins"].count_documents({}) == 0:
-            from core.security import hash_password
+            
             default_admin = {
                 "username": "admin",
                 "employee_id": "EMP1001",
