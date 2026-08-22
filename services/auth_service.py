@@ -1,7 +1,7 @@
 import re
 import logging
 import pymongo
-from typing import Optional, Dict, Any
+from typing import Dict, Any
 from db import get_db
 import datetime
 from core.security import hash_password, verify_password
@@ -18,7 +18,8 @@ class DatabaseConnectionError(Exception):
 
 class AuthService:
     def __init__(self):
-        self.use_mock = False  # Switched to Live MongoDB connection by default
+        pass
+        #self.use_mock = False  # Switched to Live MongoDB connection by default
 
     def _get_database(self):
         try:
