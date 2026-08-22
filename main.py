@@ -36,6 +36,7 @@ from ui.transactions.funds_transfer import FundsTransferPage
 from services.transaction_service import TransactionService
 from ui.transactions.transaction_history import TransactionHistoryPage
 
+logging.basicConfig(level=logging.INFO)
 logger=logging.getLogger(__name__)
 
 class Application(ctk.CTk):
@@ -234,34 +235,34 @@ class Application(ctk.CTk):
 
     def navigate_to_dashboard(self, event=None):
         #Switch view back to the dashboard page via shortcut.
-        if not self.current_user:
-            return
-        self.clear_page()
         logger.info("Shortcut triggered: Navigating to Dashboard")
+        if not self.current_user:
+            logger.warning("Navigation blocked: User is not authenticated")
+            return
         self.show_dashboard()
 
     def navigate_to_customer_management(self, event=None):
         #Switch view to the Customer Management Page via shortcut.
-        if not self.current_user:
-            return
-        self.clear_page()
         logger.info("Shortcut triggered: Navigating to Customer Management Page")
+        if not self.current_user:
+            logger.warning("Navigation blocked: User is not authenticated")
+            return
         self.show_customer_management()
 
     def navigate_to_account_management(self, event=None):
         #Switch view to the Account Management Page via shortcut.
-        if not self.current_user:
-            return
-        self.clear_page()
         logger.info("Shortcut triggered: Navigating to Account Management Page")
+        if not self.current_user:
+            logger.warning("Navigation blocked: User is not authenticated")
+            return
         self.show_account_management()
 
     def navigate_to_transaction_management(self, event=None):
         #Switch view to the Transaction Management Page via shortcut.
-        if not self.current_user:
-            return
-        self.clear_page()
         logger.info("Shortcut triggered: Navigating to Transaction Management Page")
+        if not self.current_user:
+            logger.warning("Navigation blocked: User is not authenticated")
+            return
         self.show_transaction_management()
         
 
