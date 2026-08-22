@@ -234,24 +234,32 @@ class Application(ctk.CTk):
 
     def navigate_to_dashboard(self, event=None):
         #Switch view back to the dashboard page via shortcut.
+        if not self.current_user:
+            return
         self.clear_page()
         logger.info("Shortcut triggered: Navigating to Dashboard")
         self.show_dashboard()
 
     def navigate_to_customer_management(self, event=None):
         #Switch view to the Customer Management Page via shortcut.
+        if not self.current_user:
+            return
         self.clear_page()
         logger.info("Shortcut triggered: Navigating to Customer Management Page")
         self.show_customer_management()
 
     def navigate_to_account_management(self, event=None):
         #Switch view to the Account Management Page via shortcut.
+        if not self.current_user:
+            return
         self.clear_page()
         logger.info("Shortcut triggered: Navigating to Account Management Page")
         self.show_account_management()
 
     def navigate_to_transaction_management(self, event=None):
         #Switch view to the Transaction Management Page via shortcut.
+        if not self.current_user:
+            return
         self.clear_page()
         logger.info("Shortcut triggered: Navigating to Transaction Management Page")
         self.show_transaction_management()
