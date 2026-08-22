@@ -5,7 +5,6 @@ Main Application Entry Point
 =========================================================
 """
 import customtkinter as ctk
-import os
 from core import theme
 from dotenv import load_dotenv
 
@@ -167,7 +166,7 @@ class Application(ctk.CTk):
 
     def show_account_form(self, customer_data=None):
         self.clear_page()
-        self.account_page = AccountFormPage(
+        AccountFormPage(
             parent=self.container,
             on_back=self.show_dashboard,
             prefill_customer=customer_data
@@ -235,26 +234,26 @@ class Application(ctk.CTk):
 
     def navigate_to_dashboard(self, event=None):
         #Switch view back to the dashboard page via shortcut.
-        logger.info("Shortcut triggered: Navigating to Dashboard")
         self.clear_page()
+        logger.info("Shortcut triggered: Navigating to Dashboard")
         self.show_dashboard()
 
     def navigate_to_customer_management(self, event=None):
         #Switch view to the Customer Management Page via shortcut.
-        logger.info("Shortcut triggered: Navigating to Customer Management Page")
         self.clear_page()
+        logger.info("Shortcut triggered: Navigating to Customer Management Page")
         self.show_customer_management()
 
     def navigate_to_account_management(self, event=None):
         #Switch view to the Account Management Page via shortcut.
-        logger.info("Shortcut triggered: Navigating to Account Management Page")
         self.clear_page()
+        logger.info("Shortcut triggered: Navigating to Account Management Page")
         self.show_account_management()
 
     def navigate_to_transaction_management(self, event=None):
         #Switch view to the Transaction Management Page via shortcut.
-        logger.info("Shortcut triggered: Navigating to Transaction Management Page")
         self.clear_page()
+        logger.info("Shortcut triggered: Navigating to Transaction Management Page")
         self.show_transaction_management()
         
 
